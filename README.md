@@ -1,0 +1,177 @@
+import React from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Check, Rocket, Bot, Palette, Instagram, Mail, Phone, Plus } from "lucide-react";
+import Image from "next/image";
+import Logo from "/mnt/data/Company Logo.jpg";
+
+// --- Utility styles
+const container = "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8";
+const primary = "#d4af37"; // gold
+const darkBg = "#000000";
+const lightText = "#ffffff";
+
+const SectionTitle = ({ eyebrow, title, subtitle }) => (
+  <div className="text-center max-w-2xl mx-auto mb-10">
+    {eyebrow && <div className="text-sm tracking-widest uppercase text-gray-400">{eyebrow}</div>}
+    <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mt-2 text-white">{title}</h2>
+    {subtitle && <p className="text-gray-400 mt-3 leading-relaxed">{subtitle}</p>}
+  </div>
+);
+
+const Tier = ({ name, price, period = "month", bullets = [], highlight = false }) => (
+  <Card className={`rounded-2xl bg-black text-white ${highlight ? "ring-2" : ""}`} style={highlight ? { borderColor: primary, boxShadow: "0 10px 30px rgba(0,0,0,0.4)" } : {}}>
+    <CardHeader>
+      <CardTitle className="flex items-center justify-between">
+        <span>{name}</span>
+        {highlight && <span className="text-xs px-2 py-1 rounded-full" style={{ backgroundColor: primary, color: darkBg }}>Most Popular</span>}
+      </CardTitle>
+      <CardDescription>
+        <span className="text-3xl font-semibold text-white">{price}</span>
+        <span className="text-gray-400"> / {period}</span>
+      </CardDescription>
+    </CardHeader>
+    <CardContent className="space-y-3">
+      {bullets.map((b, i) => (
+        <div key={i} className="flex items-start gap-2 text-sm text-gray-300">
+          <Check className="w-4 h-4 mt-0.5" style={{ color: primary }} />
+          <span>{b}</span>
+        </div>
+      ))}
+      <Button className="w-full mt-2" variant="default" style={{ backgroundColor: primary, color: darkBg }}>Choose plan</Button>
+    </CardContent>
+  </Card>
+);
+
+const Addon = ({ title, price }) => (
+  <div className="flex items-start gap-2 text-sm text-gray-300">
+    <Plus className="w-4 h-4 mt-0.5" style={{ color: primary }} />
+    <span>{title} <span className="text-gray-500">({price})</span></span>
+  </div>
+);
+
+export default function ARIndustriesLanding() {
+  return (
+    <div className="min-h-screen bg-black text-white">
+      {/* NAVBAR */}
+      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur border-b border-neutral-800">
+        <nav className={`${container} flex items-center justify-between h-16`}>
+          <div className="flex items-center gap-3">
+            <Image src={Logo} alt="AR Industries Logo" width={40} height={40} />
+            <span className="font-semibold tracking-wide text-white">AR Industries</span>
+          </div>
+          <div className="hidden md:flex items-center gap-6 text-sm">
+            <a href="#services" className="hover:text-[${primary}]">Services</a>
+            <a href="#packages" className="hover:text-[${primary}]">Packages</a>
+            <a href="#bundles" className="hover:text-[${primary}]">Bundles</a>
+            <a href="#addons" className="hover:text-[${primary}]">Add-ons</a>
+            <a href="#contact" className="hover:text-[${primary}]">Contact</a>
+          </div>
+          <Button style={{ backgroundColor: primary, color: darkBg }} className="rounded-xl">Get a Proposal</Button>
+        </nav>
+      </header>
+
+      {/* HERO */}
+      <section className="relative overflow-hidden">
+        <div className={`${container} py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center`}>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <p className="text-sm tracking-widest uppercase text-gray-400">Luxury • Minimal • Strategic</p>
+            <h1 className="text-4xl md:text-5xl font-semibold mt-3 leading-tight text-white">Digital Growth for Ambitious Brands</h1>
+            <p className="text-gray-400 mt-4 max-w-xl">We help businesses scale through Social Media Marketing, Premium Content Creation, and AI Chatbot solutions. Clear strategy, elegant design, measurable results.</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button style={{ backgroundColor: primary, color: darkBg }} className="rounded-xl">Request Pricing</Button>
+              <Button variant="ghost" className="rounded-xl border" style={{ borderColor: primary, color: primary }}>View Packages</Button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* PACKAGES */}
+      <section id="packages" className="py-20 bg-black border-t border-neutral-800">
+        <div className={container}>
+          <SectionTitle eyebrow="Plans" title="Social Media Marketing Packages" subtitle="Choose the plan that fits your growth stage." />
+          <div className="grid md:grid-cols-3 gap-8">
+            <Tier name="Starter" price="RM 845" bullets={["1 platform", "8 posts", "Captions", "1× monthly report"]} />
+            <Tier name="Growth" price="RM 1,268" highlight bullets={["2 platforms", "12 posts", "10 stories", "3 hrs/wk community mgmt", "1× strategy call"]} />
+            <Tier name="Pro" price="RM 2,113" bullets={["3 platforms", "16 posts", "20 stories", "5 hrs/wk community mgmt", "2× strategy calls"]} />
+          </div>
+
+          <SectionTitle title="Content Creation Packages" subtitle="Tailored visuals and videos to elevate your brand." />
+          <div className="grid md:grid-cols-3 gap-8">
+            <Tier name="Starter" price="RM 845" bullets={["6 static designs", "1 short-form edit", "Copywriting"]} />
+            <Tier name="Plus" price="RM 1,268" highlight bullets={["10 static designs", "3 short-form edits", "Thumbnails (3)"]} />
+            <Tier name="Pro" price="RM 1,690" bullets={["15 static designs", "4 short-form edits", "Thumbnails (6)", "Motion graphics"]} />
+          </div>
+
+          <SectionTitle title="AI Chatbot Setup" subtitle="Automated customer support & lead capture." />
+          <div className="grid md:grid-cols-2 gap-8">
+            <Tier name="Setup" price="RM 1,479" period="one-time" bullets={["Custom AI chatbot setup"]} />
+            <Tier name="Maintenance" price="RM 211" bullets={["Monthly upkeep & optimization"]} />
+          </div>
+        </div>
+      </section>
+
+      {/* BUNDLES */}
+      <section id="bundles" className="py-20 bg-black border-t border-neutral-800">
+        <div className={container}>
+          <SectionTitle eyebrow="Best Value" title="All-In Bundles" subtitle="Save more with combined services." />
+          <div className="grid md:grid-cols-3 gap-8">
+            <Tier name="Bundle A – Start" price="RM 1,712" bullets={["SMM Starter", "Content Starter", "AI Maintenance", "+ Setup RM 1,479"]} />
+            <Tier name="Bundle B – Grow" price="RM 2,417" highlight bullets={["SMM Growth", "Content Plus", "AI Maintenance", "+ Setup RM 1,479"]} />
+            <Tier name="Bundle C – Scale" price="RM 3,413" bullets={["SMM Pro", "Content Pro", "AI Maintenance", "+ Setup RM 1,479"]} />
+          </div>
+        </div>
+      </section>
+
+      {/* ADD-ONS */}
+      <section id="addons" className="py-20 bg-black border-t border-neutral-800">
+        <div className={container}>
+          <SectionTitle eyebrow="Extras" title="Add-On Services" subtitle="Customize your package with additional features." />
+
+          <div className="grid md:grid-cols-2 gap-12">
+            <div>
+              <h3 className="text-xl font-semibold mb-4" style={{ color: primary }}>SMM Add-ons</h3>
+              <Addon title="Extra platform mgmt" price="RM 350 – 600 / month" />
+              <Addon title="Paid ads mgmt" price="RM 500 – 1,500 / month or 10–20% ad spend" />
+              <Addon title="Influencer seeding" price="RM 100 – 300 / post" />
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-4" style={{ color: primary }}>Content Add-ons</h3>
+              <Addon title="Extra reel edit" price="RM 120 – 300 / video" />
+              <Addon title="On-site half-day shoot" price="RM 600 – 1,200" />
+              <Addon title="Subtitles / CC" price="RM 30 – 80 / video" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="py-20 bg-black border-t border-neutral-800">
+        <div className={container}>
+          <SectionTitle eyebrow="Let’s Talk" title="Get in Touch" subtitle="Request a proposal or ask about our packages." />
+          <div className="grid md:grid-cols-2 gap-10">
+            <div className="space-y-6">
+              <p className="text-gray-400">Fill out the form and our team will get back to you within 24 hours.</p>
+              <p className="flex items-center gap-2 text-gray-300"><Mail className="w-4 h-4" style={{ color: primary }} /> hello@arindustries.com</p>
+              <p className="flex items-center gap-2 text-gray-300"><Phone className="w-4 h-4" style={{ color: primary }} /> +60 12-345 6789</p>
+              <p className="flex items-center gap-2 text-gray-300"><Instagram className="w-4 h-4" style={{ color: primary }} /> @arindustries</p>
+            </div>
+            <form className="space-y-4">
+              <Input placeholder="Name" className="bg-neutral-900 border-neutral-700 text-white" />
+              <Input placeholder="Email" type="email" className="bg-neutral-900 border-neutral-700 text-white" />
+              <Textarea placeholder="Message" rows={4} className="bg-neutral-900 border-neutral-700 text-white" />
+              <Button style={{ backgroundColor: primary, color: darkBg }} className="rounded-xl">Send Message</Button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-neutral-800 py-6 text-center text-gray-500 text-sm">© {new Date().getFullYear()} AR Industries. All rights reserved.</footer>
+    </div>
+  );
+}
